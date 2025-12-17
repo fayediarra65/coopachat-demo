@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracker Avancé</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(251, 194, 235, 0.4);
+            padding: 30px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f8a5c2;
+        }
+        .header h1 { color: #f8a5c2; font-size: 2.5em; margin-bottom: 10px; }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 15px 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab.active { color: #f8a5c2; border-bottom-color: #f8a5c2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #fbc2eb 0%, #f8a5c2 100%);
+            padding: 20px;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+        }
+        .stat-card .number { font-size: 2.5em; font-weight: bold; }
+        .stat-card .label { font-size: 0.9em; opacity: 0.9; margin-top: 5px; }
+        .add-section {
+            background: #fef5f9;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 2px solid #fbc2eb;
+        }
+        .add-section h3 { color: #f8a5c2; margin-bottom: 15px; }
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { font-weight: bold; color: #666; font-size: 0.9em; }
+        .form-input, .form-select, .form-textarea {
+            padding: 10px;
+            border: 2px solid #f8a5c2;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        .form-textarea { min-height: 80px; resize: vertical; }
+        .btn-primary {
+            background: linear-gradient(135deg, #fbc2eb 0%, #f8a5c2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+        }
+        .btn-primary:hover { transform: scale(1.05); transition: 0.2s; }
+        .items-grid { display: grid; gap: 15px; margin-bottom: 30px; }
+        .item-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 5px solid #f8a5c2;
+        }
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+        .item-title { font-size: 1.2em; font-weight: bold; color: #333; flex: 1; }
+        .item-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .badge-urgent { background: #ff6b6b; color: white; }
+        .badge-important { background: #ffd93d; color: #333; }
+        .badge-normal { background: #6bcf7f; color: white; }
+        .badge-later { background: #a6c1ee; color: white; }
+        .badge-daily { background: #f8a5c2; color: white; }
+        .badge-weekly { background: #a6c1ee; color: white; }
+        .badge-temporary { background: #ffd93d; color: #333; }
+        .item-days {
+            display: flex;
+            gap: 8px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .day-box {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #f8a5c2;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+        .day-box.checked {
+            background: linear-gradient(135deg, #fbc2eb 0%, #f8a5c2 100%);
+            color: white;
+        }
+        .day-box:hover { transform: scale(1.1); }
+        .item-actions { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-small {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .btn-done { background: #6bcf7f; color: white; }
+        .btn-delete { background: #ff6b6b; color: white; }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #fbc2eb 0%, #f8a5c2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .filter-bar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid #f8a5c2;
+            background: white;
+            color: #f8a5c2;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .filter-btn.active { background: linear-gradient(135deg, #fbc2eb 0%, #f8a5c2 100%); color: white; }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            font-style: italic;
+        }
+        .rewards-section {
+            background: linear-gradient(135deg, #ffd93d 0%, #ffb347 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+        }
+        .rewards-points { font-size: 4em; font-weight: bold; margin: 20px 0; }
+        @media (max-width: 768px) {
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Tracker Avancé</h1>
+            <p>Habitudes • Tâches • Objectifs</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('habits')">✨ Habitudes</button>
+            <button class="tab" onclick="switchTab('tasks')">📋 Tâches</button>
+            <button class="tab" onclick="switchTab('rewards')">🏆 Récompenses</button>
+        </div>
+
+        <div id="habits" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number" id="totalPoints">0</div>
+                    <div class="label">🏆 Points</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="habitsCompleted">0/0</div>
+                    <div class="label">✨ Habitudes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="tasksCompleted">0/0</div>
+                    <div class="label">📋 Tâches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="streak">0</div>
+                    <div class="label">🔥 Série</div>
+                </div>
+            </div>
+
+            <div class="add-section">
+                <h3>➕ Ajouter une habitude</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nom de l'habitude *</label>
+                        <input type="text" id="habitName" class="form-input" placeholder="Ex: Faire du sport">
+                    </div>
+                    <div class="form-group">
+                        <label>Fréquence *</label>
+                        <select id="habitType" class="form-select">
+                            <option value="daily">Quotidienne</option>
+                            <option value="weekly">2-3x par semaine</option>
+                            <option value="temporary">Temporaire (période)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>⏰ Rappel</label>
+                        <input type="time" id="habitReminder" class="form-input">
+                    </div>
+                </div>
+                <div class="form-row" id="tempDates" style="display: none;">
+                    <div class="form-group">
+                        <label>Date de fin</label>
+                        <input type="date" id="habitEndDate" class="form-input">
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="addHabit()">✨ Ajouter</button>
+            </div>
+
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filterItems('habits', 'all')">Toutes</button>
+                <button class="filter-btn" onclick="filterItems('habits', 'daily')">Quotidiennes</button>
+                <button class="filter-btn" onclick="filterItems('habits', 'weekly')">Hebdo</button>
+                <button class="filter-btn" onclick="filterItems('habits', 'temporary')">Temporaires</button>
+            </div>
+
+            <div class="items-grid" id="habitsList"></div>
+        </div>
+
+        <div id="tasks" class="tab-content">
+            <div class="add-section">
+                <h3>➕ Ajouter une tâche</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Titre *</label>
+                        <input type="text" id="taskTitle" class="form-input" placeholder="Ex: Finir le rapport">
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select id="taskType" class="form-select">
+                            <option value="work">💼 Professionnel</option>
+                            <option value="personal">🏠 Personnel</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Priorité *</label>
+                        <select id="taskPriority" class="form-select">
+                            <option value="urgent">🔴 Urgent (aujourd'hui)</option>
+                            <option value="important">🟡 Important (semaine)</option>
+                            <option value="normal">🟢 Normal</option>
+                            <option value="later">🔵 Plus tard (2-3 sem)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>⏰ Date limite</label>
+                        <input type="date" id="taskDeadline" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>⏰ Rappel</label>
+                        <input type="datetime-local" id="taskReminder" class="form-input">
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="addTask()">📋 Ajouter</button>
+            </div>
+
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filterItems('tasks', 'all')">Toutes</button>
+                <button class="filter-btn" onclick="filterItems('tasks', 'urgent')">🔴 Urgentes</button>
+                <button class="filter-btn" onclick="filterItems('tasks', 'important')">🟡 Importantes</button>
+                <button class="filter-btn" onclick="filterItems('tasks', 'later')">🔵 Plus tard</button>
+            </div>
+
+            <div class="items-grid" id="tasksList"></div>
+        </div>
+
+        <div id="rewards" class="tab-content">
+            <div class="rewards-section">
+                <h2>🏆 Système de Récompenses</h2>
+                <div class="rewards-points" id="rewardsPoints">0 pts</div>
+                <p style="font-size: 1.2em;">Niveau <span id="level">1</span> - <span id="levelName">Débutant</span></p>
+                <p style="margin-top: 20px;">✨ +10 pts par habitude complétée</p>
+                <p>📋 +20 pts par tâche terminée</p>
+                <p>🔥 +50 pts par série de 7 jours</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let data = { habits: [], tasks: [], points: 0, streak: 0, filter: 'all' };
+
+        function loadData() {
+            const saved = localStorage.getItem('tracker_advanced');
+            if (saved) {
+                data = JSON.parse(saved);
+                render();
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('tracker_advanced', JSON.stringify(data));
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tab).classList.add('active');
+        }
+
+        document.getElementById('habitType').addEventListener('change', (e) => {
+            document.getElementById('tempDates').style.display = e.target.value === 'temporary' ? 'grid' : 'none';
+        });
+
+        function addHabit() {
+            const name = document.getElementById('habitName').value.trim();
+            if (!name) return showNotif('⚠️ Entrez un nom');
+
+            data.habits.push({
+                id: Date.now(),
+                name,
+                type: document.getElementById('habitType').value,
+                endDate: document.getElementById('habitEndDate').value || null,
+                reminder: document.getElementById('habitReminder').value || null,
+                days: [],
+                completed: 0
+            });
+
+            document.getElementById('habitName').value = '';
+            saveData();
+            render();
+            showNotif('✨ Habitude ajoutée !');
+        }
+
+        function addTask() {
+            const title = document.getElementById('taskTitle').value.trim();
+            if (!title) return showNotif('⚠️ Entrez un titre');
+
+            data.tasks.push({
+                id: Date.now(),
+                title,
+                type: document.getElementById('taskType').value,
+                priority: document.getElementById('taskPriority').value,
+                deadline: document.getElementById('taskDeadline').value || null,
+                reminder: document.getElementById('taskReminder').value || null,
+                completed: false
+            });
+
+            document.getElementById('taskTitle').value = '';
+            saveData();
+            render();
+            showNotif('📋 Tâche ajoutée !');
+        }
+
+        function toggleDay(habitId, day) {
+            const habit = data.habits.find(h => h.id === habitId);
+            const idx = habit.days.indexOf(day);
+            if (idx > -1) {
+                habit.days.splice(idx, 1);
+                data.points -= 10;
+            } else {
+                habit.days.push(day);
+                habit.completed++;
+                data.points += 10;
+                checkAchievements();
+            }
+            saveData();
+            render();
+        }
+
+        function toggleTask(taskId) {
+            const task = data.tasks.find(t => t.id === taskId);
+            task.completed = !task.completed;
+            if (task.completed) {
+                data.points += 20;
+                showNotif('🎉 +20 points !');
+            } else {
+                data.points -= 20;
+            }
+            saveData();
+            render();
+        }
+
+        function deleteItem(type, id) {
+            if (confirm('Supprimer ?')) {
+                data[type] = data[type].filter(item => item.id !== id);
+                saveData();
+                render();
+            }
+        }
+
+        function filterItems(type, filter) {
+            data.filter = filter;
+            event.target.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            render();
+        }
+
+        function getWeekDays() {
+            const days = [];
+            for (let i = 0; i < 7; i++) {
+                const d = new Date();
+                d.setDate(d.getDate() - d.getDay() + i + 1);
+                days.push(d.toISOString().split('T')[0]);
+            }
+            return days;
+        }
+
+        function render() {
+            const weekDays = getWeekDays();
+            const dayNames = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+
+            let filteredHabits = data.habits;
+            let filteredTasks = data.tasks;
+
+            if (data.filter !== 'all') {
+                filteredHabits = data.habits.filter(h => h.type === data.filter);
+                filteredTasks = data.tasks.filter(t => t.priority === data.filter || t.type === data.filter);
+            }
+
+            document.getElementById('habitsList').innerHTML = filteredHabits.length ? filteredHabits.map(h => `
+                <div class="item-card">
+                    <div class="item-header">
+                        <div class="item-title">${h.name}</div>
+                        <span class="item-badge badge-${h.type}">${
+                            h.type === 'daily' ? 'Quotidienne' :
+                            h.type === 'weekly' ? 'Hebdo' : 'Temporaire'
+                        }</span>
+                    </div>
+                    ${h.reminder ? `<p style="color: #666; font-size: 0.9em;">⏰ Rappel : ${h.reminder}</p>` : ''}
+                    ${h.endDate ? `<p style="color: #666; font-size: 0.9em;">📅 Jusqu'au : ${new Date(h.endDate).toLocaleDateString('fr')}</p>` : ''}
+                    <div class="item-days">
+                        ${weekDays.map((day, i) => `
+                            <div class="day-box ${h.days.includes(day) ? 'checked' : ''}" 
+                                 onclick="toggleDay(${h.id}, '${day}')">
+                                ${dayNames[i]}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <p style="color: #666; margin-top: 10px;">✅ ${h.completed} fois complétée</p>
+                    <div class="item-actions">
+                        <button class="btn-small btn-delete" onclick="deleteItem('habits', ${h.id})">🗑️ Supprimer</button>
+                    </div>
+                </div>
+            `).join('') : '<div class="empty-state">Aucune habitude</div>';
+
+            document.getElementById('tasksList').innerHTML = filteredTasks.length ? filteredTasks.map(t => `
+                <div class="item-card" style="${t.completed ? 'opacity: 0.6; text-decoration: line-through;' : ''}">
+                    <div class="item-header">
+                        <div class="item-title">${t.title}</div>
+                        <span class="item-badge badge-${t.priority}">${
+                            t.priority === 'urgent' ? '🔴 Urgent' :
+                            t.priority === 'important' ? '🟡 Important' :
+                            t.priority === 'normal' ? '🟢 Normal' : '🔵 Plus tard'
+                        }</span>
+                    </div>
+                    <p style="color: #666; margin: 10px 0;">${t.type === 'work' ? '💼 Pro' : '🏠 Perso'}</p>
+                    ${t.deadline ? `<p style="color: #666;">📅 ${new Date(t.deadline).toLocaleDateString('fr')}</p>` : ''}
+                    ${t.reminder ? `<p style="color: #666;">⏰ ${new Date(t.reminder).toLocaleString('fr')}</p>` : ''}
+                    <div class="item-actions">
+                        <button class="btn-small btn-done" onclick="toggleTask(${t.id})">
+                            ${t.completed ? '↩️ Annuler' : '✅ Terminer'}
+                        </button>
+                        <button class="btn-small btn-delete" onclick="deleteItem('tasks', ${t.id})">🗑️</button>
+                    </div>
+                </div>
+            `).join('') : '<div class="empty-state">Aucune tâche</div>';
+
+            updateStats();
+        }
+
+        function updateStats() {
+            const completedToday = data.habits.filter(h => h.days.includes(new Date().toISOString().split('T')[0])).length;
+            const completedTasks = data.tasks.filter(t => t.completed).length;
+
+            document.getElementById('totalPoints').textContent = data.points;
+            document.getElementById('habitsCompleted').textContent = `${completedToday}/${data.habits.length}`;
+            document.getElementById('tasksCompleted').textContent = `${completedTasks}/${data.tasks.length}`;
+            document.getElementById('streak').textContent = data.streak;
+            document.getElementById('rewardsPoints').textContent = data.points + ' pts';
+
+            const level = Math.floor(data.points / 100) + 1;
+            const levelNames = ['Débutant', 'Motivé', 'Régulier', 'Expert', 'Maître', 'Légende'];
+            document.getElementById('level').textContent = level;
+            document.getElementById('levelName').textContent = levelNames[Math.min(level - 1, 5)];
+        }
+
+        function checkAchievements() {
+            if (data.habits.length >= 1 && data.points >= 10) showNotif('🎯 Déblocage : Premier pas !');
+            if (data.streak >= 7) showNotif('🔥 Déblocage : Série de 7 jours !');
+        }
+
+        function showNotif(msg) {
+            const notif = document.createElement('div');
+            notif.className = 'notification';
+            notif.textContent = msg;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 3000);
+        }
+
+        function checkReminders() {
+            const now = new Date();
+            data.habits.forEach(h => {
+                if (h.reminder) {
+                    const [hours, minutes] = h.reminder.split(':');
+                    if (now.getHours() == hours && now.getMinutes() == minutes) {
+                        showNotif(`⏰ Rappel : ${h.name}`);
+                    }
+                }
+            });
+        }
+
+        setInterval(checkReminders, 60000);
+        loadData();
+        render();
+    </script>
+</body>
+</html>
