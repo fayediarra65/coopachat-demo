@@ -14,17 +14,17 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            background: linear-gradient(135deg, #f5e6f5 0%, #e8f2f7 100%);
             min-height: 100vh;
             padding: 20px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(251, 194, 235, 0.4);
+            box-shadow: 0 20px 60px rgba(220, 200, 220, 0.3);
             padding: 30px;
         }
 
@@ -32,18 +32,13 @@
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 3px solid #f8a5c2;
+            border-bottom: 3px solid #e8b4d0;
         }
 
         .header h1 {
-            color: #f8a5c2;
+            color: #e8b4d0;
             font-size: 2.5em;
             margin-bottom: 10px;
-        }
-
-        .header p {
-            color: #666;
-            font-size: 1.1em;
         }
 
         .stats-grid {
@@ -54,12 +49,12 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #fbc2eb 0%, #f8a5c2 100%);
+            background: linear-gradient(135deg, #e8b4d0 0%, #d5a0bc 100%);
             padding: 25px;
             border-radius: 15px;
             color: white;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(248, 165, 194, 0.4);
+            box-shadow: 0 5px 15px rgba(232, 180, 208, 0.3);
             transition: transform 0.3s;
         }
 
@@ -78,54 +73,6 @@
             opacity: 0.9;
         }
 
-        .controls {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            font-size: 1.1em;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .btn-add {
-            background: linear-gradient(135deg, #f8a5c2 0%, #fbc2eb 100%);
-            color: white;
-        }
-
-        .btn-add:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(248, 165, 194, 0.5);
-        }
-
-        .btn-remove {
-            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
-            color: white;
-        }
-
-        .btn-remove:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(238, 9, 121, 0.4);
-        }
-
-        .btn-reset {
-            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-            color: white;
-        }
-
-        .btn-reset:hover {
-            transform: scale(1.05);
-        }
-
         .progress-bar-container {
             background: #f0f0f0;
             height: 40px;
@@ -137,7 +84,7 @@
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #fbc2eb 0%, #f8a5c2 100%);
+            background: linear-gradient(90deg, #e8b4d0 0%, #d5a0bc 100%);
             transition: width 0.5s ease;
             display: flex;
             align-items: center;
@@ -155,83 +102,250 @@
             margin-bottom: 30px;
         }
 
-        .milestones {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
+        .features-section {
+            margin-top: 30px;
         }
 
-        .milestone {
-            background: #f8f9fa;
+        .module {
+            background: #faf5f8;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #e8b4d0;
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .module-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #e8b4d0;
+        }
+
+        .module-stats {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .features-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .feature-item {
+            background: white;
             padding: 15px;
             border-radius: 10px;
-            text-align: center;
-            border-left: 4px solid #ddd;
-            transition: all 0.3s;
-        }
-
-        .milestone.reached {
-            background: linear-gradient(135deg, #fbc2eb 0%, #f8a5c2 100%);
-            color: white;
-            border-left-color: #f8a5c2;
-            transform: scale(1.05);
-        }
-
-        .milestone .percent {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .milestone .label {
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-
-        .priority-breakdown {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: 40px 120px 1fr 100px 80px;
+            gap: 15px;
+            align-items: center;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
         }
 
-        .priority-card {
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
+        .feature-item:hover {
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left-color: #e8b4d0;
         }
 
-        .priority-card.critical {
-            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
-            color: white;
+        .feature-item.completed {
+            background: #f0f8f0;
+            border-left-color: #a8d5a8;
         }
 
-        .priority-card.important {
-            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+        .feature-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .feature-id {
+            font-weight: bold;
+            color: #666;
+            font-size: 0.85em;
+        }
+
+        .feature-name {
+            font-weight: 600;
             color: #333;
         }
 
-        .priority-card.normal {
-            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+        .feature-priority {
+            text-align: center;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85em;
+        }
+
+        .priority-critical {
+            background: #e8b4b4;
             color: white;
         }
 
-        .priority-card .count {
-            font-size: 2.5em;
+        .priority-important {
+            background: #f0d890;
+            color: #333;
+        }
+
+        .priority-normal {
+            background: #a8d5a8;
+            color: white;
+        }
+
+        .feature-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-icon {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .btn-edit {
+            background: #a8c8e0;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #d4b8a8;
+            color: white;
+        }
+
+        .btn-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .add-feature-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #a8d5a8 0%, #90c090 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
             font-weight: bold;
-            margin-bottom: 10px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .add-feature-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            font-size: 1.5em;
+            color: #e8b4d0;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #f0f0f0;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #e8b4d0 0%, #d5a0bc 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #666;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
         }
 
         .history {
             margin-top: 30px;
             padding: 20px;
-            background: #fef5f9;
+            background: #faf5f8;
             border-radius: 10px;
-            border: 2px solid #fbc2eb;
+            border: 2px solid #e8b4d0;
         }
 
         .history h3 {
-            color: #f8a5c2;
+            color: #e8b4d0;
             margin-bottom: 15px;
         }
 
@@ -243,16 +357,31 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(248, 165, 194, 0.2);
+            box-shadow: 0 2px 5px rgba(232, 180, 208, 0.2);
+        }
+
+        .collapsed .features-list {
+            display: none;
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s;
+        }
+
+        .collapsed .toggle-icon {
+            transform: rotate(-90deg);
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8em;
+            .feature-item {
+                grid-template-columns: 40px 1fr;
+                gap: 10px;
             }
             
-            .stat-card .number {
-                font-size: 2em;
+            .feature-id,
+            .feature-priority,
+            .feature-actions {
+                grid-column: 2;
             }
         }
     </style>
@@ -284,54 +413,16 @@
         </div>
 
         <div class="progress-bar-container">
-            <div class="progress-bar" id="progressBar" style="width: 0%">
-                0%
-            </div>
-        </div>
-
-        <div class="controls">
-            <button class="btn btn-add" onclick="addProgress()">✅ +1 Terminée</button>
-            <button class="btn btn-add" onclick="addProgress(5)">⚡ +5 Terminées</button>
-            <button class="btn btn-remove" onclick="removeProgress()">❌ -1 Terminée</button>
-            <button class="btn btn-reset" onclick="resetProgress()">🔄 Réinitialiser</button>
-        </div>
-
-        <div class="milestones">
-            <div class="milestone" data-percent="25">
-                <div class="percent">25%</div>
-                <div class="label">Premier quart</div>
-            </div>
-            <div class="milestone" data-percent="50">
-                <div class="percent">50%</div>
-                <div class="label">Mi-parcours</div>
-            </div>
-            <div class="milestone" data-percent="75">
-                <div class="percent">75%</div>
-                <div class="label">Dernière ligne droite</div>
-            </div>
-            <div class="milestone" data-percent="100">
-                <div class="percent">100%</div>
-                <div class="label">🎉 Terminé !</div>
-            </div>
+            <div class="progress-bar" id="progressBar" style="width: 0%">0%</div>
         </div>
 
         <div class="chart-container">
             <canvas id="progressChart"></canvas>
         </div>
 
-        <div class="priority-breakdown">
-            <div class="priority-card critical">
-                <div class="count">0/87</div>
-                <div class="label">🔴 Critique</div>
-            </div>
-            <div class="priority-card important">
-                <div class="count">0/39</div>
-                <div class="label">🟡 Important</div>
-            </div>
-            <div class="priority-card normal">
-                <div class="count">0/12</div>
-                <div class="label">🟢 Normal</div>
-            </div>
+        <div class="features-section">
+            <button class="add-feature-btn" onclick="openAddModal()">+ Ajouter une fonctionnalité</button>
+            <div id="modulesList"></div>
         </div>
 
         <div class="history">
@@ -340,155 +431,462 @@
         </div>
     </div>
 
+    <!-- Modal Ajout/Modification -->
+    <div id="featureModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header" id="modalTitle">Ajouter une fonctionnalité</div>
+            <form id="featureForm">
+                <div class="form-group">
+                    <label>Module</label>
+                    <select id="featureModule" required>
+                        <option value="AUTHENTIFICATION">🔐 Authentification</option>
+                        <option value="SALARIÉ">👤 Salarié</option>
+                        <option value="COMMERCIAL">💼 Commercial</option>
+                        <option value="LOGISTIQUE">📦 Responsable Logistique</option>
+                        <option value="LIVREUR">🚚 Livreur</option>
+                        <option value="ADMINISTRATEUR">⚙️ Administrateur</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" id="featureId" placeholder="AUTH-01" required>
+                </div>
+                <div class="form-group">
+                    <label>Nom</label>
+                    <input type="text" id="featureName" placeholder="Inscription - Salarié" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="featureDescription" placeholder="Description détaillée..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Priorité</label>
+                    <select id="featurePriority" required>
+                        <option value="critical">🔴 Critique</option>
+                        <option value="important">🟡 Important</option>
+                        <option value="normal">🟢 Normal</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
-        const TOTAL = 138;
-        let completed = 0;
+        const DEFAULT_FEATURES = {
+            "AUTHENTIFICATION": [
+                {id: "AUTH-01", name: "Inscription - Salarié", description: "Créer un compte avec email, téléphone, mot de passe, entreprise", priority: "critical"},
+                {id: "AUTH-02", name: "Inscription - Commercial", description: "Créer un compte commercial avec informations entreprise", priority: "critical"},
+                {id: "AUTH-03", name: "Inscription - Responsable Logistique", description: "Créer un compte pour gérer les stocks et livraisons", priority: "critical"},
+                {id: "AUTH-04", name: "Inscription - Livreur", description: "Créer un compte livreur pour accéder aux tournées", priority: "critical"},
+                {id: "AUTH-05", name: "Inscription - Administrateur", description: "Créer un compte admin avec accès complet", priority: "critical"},
+                {id: "AUTH-06", name: "Vérification email", description: "Vérifier l'email avec code à 6 chiffres (OTP)", priority: "critical"},
+                {id: "AUTH-07", name: "Connexion", description: "Se connecter avec email/téléphone + mot de passe", priority: "critical"},
+                {id: "AUTH-08", name: "Mot de passe oublié", description: "Réinitialiser le mot de passe par email", priority: "important"},
+                {id: "AUTH-09", name: "Double authentification (2FA) Admin", description: "Code SMS obligatoire pour admin", priority: "important"},
+                {id: "AUTH-10", name: "Refresh Token", description: "Renouveler le token d'accès sans re-connexion", priority: "important"},
+                {id: "AUTH-11", name: "Déconnexion", description: "Se déconnecter et invalider le token", priority: "normal"}
+            ],
+            "SALARIÉ": [
+                {id: "SAL-01", name: "Voir mon profil", description: "Consulter mes informations personnelles", priority: "normal"},
+                {id: "SAL-02", name: "Modifier mon profil", description: "Mettre à jour nom, téléphone, adresse", priority: "important"},
+                {id: "SAL-03", name: "Modifier préférences de livraison", description: "Choisir jours, créneaux horaires, adresse", priority: "important"},
+                {id: "SAL-04", name: "Consulter le catalogue produits", description: "Voir tous les produits avec filtres", priority: "critical"},
+                {id: "SAL-05", name: "Rechercher un produit", description: "Recherche par nom, catégorie, marque", priority: "critical"},
+                {id: "SAL-06", name: "Voir détail d'un produit", description: "Consulter description, prix, stock disponible", priority: "critical"},
+                {id: "SAL-07", name: "Ajouter produit au panier", description: "Sélectionner quantité et ajouter au panier", priority: "critical"},
+                {id: "SAL-08", name: "Voir mon panier", description: "Consulter produits ajoutés avec total", priority: "critical"},
+                {id: "SAL-09", name: "Modifier quantité dans le panier", description: "Augmenter/diminuer quantité d'un produit", priority: "critical"},
+                {id: "SAL-10", name: "Supprimer produit du panier", description: "Retirer un produit du panier", priority: "critical"},
+                {id: "SAL-11", name: "Appliquer un coupon de réduction", description: "Saisir code promo pour obtenir réduction", priority: "important"},
+                {id: "SAL-12", name: "Choisir fréquence de livraison", description: "Sélectionner hebdomadaire/bimensuelle/mensuelle", priority: "critical"},
+                {id: "SAL-13", name: "Valider ma commande", description: "Confirmer le panier et passer commande", priority: "critical"},
+                {id: "SAL-14", name: "Payer par Mobile Money", description: "Payer avec Orange Money/Wave/MTN", priority: "critical"},
+                {id: "SAL-15", name: "Payer par carte bancaire", description: "Payer avec carte via Stripe/PayPal", priority: "critical"},
+                {id: "SAL-16", name: "Voir mes commandes", description: "Consulter historique de toutes mes commandes", priority: "critical"},
+                {id: "SAL-17", name: "Voir détail d'une commande", description: "Consulter produits, montant, statut, livraison", priority: "critical"},
+                {id: "SAL-18", name: "Suivre statut de ma commande", description: "Voir : validée, en préparation, expédiée, livrée", priority: "critical"},
+                {id: "SAL-19", name: "Modifier ma commande", description: "Modifier avant préparation", priority: "important"},
+                {id: "SAL-20", name: "Annuler ma commande", description: "Annuler si statut = validée ou en attente", priority: "important"},
+                {id: "SAL-21", name: "Voir mes coupons disponibles", description: "Liste des coupons actifs utilisables", priority: "normal"},
+                {id: "SAL-22", name: "Recevoir notification de livraison", description: "Notification quand commande est livrée", priority: "critical"},
+                {id: "SAL-23", name: "Consulter historique des paiements", description: "Voir tous mes paiements effectués", priority: "normal"},
+                {id: "SAL-24", name: "Télécharger reçu de paiement", description: "Télécharger PDF du reçu", priority: "important"},
+                {id: "SAL-25", name: "Soumettre une réclamation", description: "Signaler produit manquant/endommagé/erreur", priority: "critical"},
+                {id: "SAL-26", name: "Suivre ma réclamation", description: "Voir statut : en attente, en cours, résolue", priority: "important"},
+                {id: "SAL-27", name: "Demander un retour produit", description: "Demander retour suite à réclamation", priority: "important"}
+            ],
+            "COMMERCIAL": [
+                {id: "COM-01", name: "Voir mon tableau de bord", description: "Vue d'ensemble : prospects, entreprises, ventes", priority: "critical"},
+                {id: "COM-02", name: "Ajouter une entreprise prospectée", description: "Créer fiche entreprise", priority: "critical"},
+                {id: "COM-03", name: "Voir liste des prospects", description: "Consulter toutes les entreprises démarchées", priority: "critical"},
+                {id: "COM-04", name: "Mettre à jour statut prospect", description: "Changer : en attente, intéressée, partenaire, refusée", priority: "critical"},
+                {id: "COM-05", name: "Voir liste des entreprises partenaires", description: "Liste des entreprises ayant signé", priority: "critical"},
+                {id: "COM-06", name: "Inscrire un salarié", description: "Créer compte salarié et l'associer à une entreprise", priority: "critical"},
+                {id: "COM-07", name: "Voir liste des salariés inscrits", description: "Par entreprise avec statut", priority: "important"},
+                {id: "COM-08", name: "Créer un coupon de réduction", description: "Code promo avec date validité", priority: "critical"},
+                {id: "COM-09", name: "Voir mes coupons créés", description: "Liste de tous les coupons avec utilisation", priority: "important"},
+                {id: "COM-10", name: "Modifier un coupon", description: "Changer dates ou produits éligibles", priority: "normal"},
+                {id: "COM-11", name: "Désactiver un coupon", description: "Rendre un coupon inutilisable", priority: "normal"},
+                {id: "COM-12", name: "Voir statistiques par entreprise", description: "Nombre commandes, montant total", priority: "critical"},
+                {id: "COM-13", name: "Exporter rapport de ventes", description: "Télécharger Excel/PDF des statistiques", priority: "important"},
+                {id: "COM-14", name: "Voir graphique évolution ventes", description: "Graphique mensuel/trimestriel", priority: "normal"}
+            ],
+            "LOGISTIQUE": [
+                {id: "LOG-01", name: "Voir tableau de bord logistique", description: "Vue : commandes à préparer, stocks, livraisons", priority: "critical"},
+                {id: "LOG-02", name: "Voir commandes à préparer", description: "Liste des commandes validées en attente", priority: "critical"},
+                {id: "LOG-03", name: "Filtrer commandes par date/zone", description: "Filtrer par date livraison ou zone", priority: "critical"},
+                {id: "LOG-04", name: "Marquer commande en préparation", description: "Changer statut", priority: "critical"},
+                {id: "LOG-05", name: "Générer bon de préparation", description: "PDF avec liste produits", priority: "critical"},
+                {id: "LOG-06", name: "Générer bon de préparation groupé", description: "PDF regroupant plusieurs commandes", priority: "important"},
+                {id: "LOG-07", name: "Voir état des stocks", description: "Liste produits avec quantité disponible", priority: "critical"},
+                {id: "LOG-08", name: "Recevoir alerte stock bas", description: "Notification quand stock < seuil", priority: "critical"},
+                {id: "LOG-09", name: "Voir historique mouvements stock", description: "Entrées/sorties avec dates", priority: "important"},
+                {id: "LOG-10", name: "Voir liste des fournisseurs", description: "Tous les fournisseurs avec contacts", priority: "important"},
+                {id: "LOG-11", name: "Passer commande fournisseur", description: "Créer commande d'approvisionnement", priority: "critical"},
+                {id: "LOG-12", name: "Voir commandes fournisseurs", description: "Liste avec statut", priority: "important"},
+                {id: "LOG-13", name: "Confirmer réception fournisseur", description: "Valider réception et mettre à jour stock", priority: "critical"},
+                {id: "LOG-14", name: "Signaler écart quantité reçue", description: "Si quantité reçue ≠ quantité commandée", priority: "important"},
+                {id: "LOG-15", name: "Planifier tournée de livraison", description: "Créer tournée avec zone, date, livreur", priority: "critical"},
+                {id: "LOG-16", name: "Assigner commandes à une tournée", description: "Ajouter commandes à une tournée", priority: "critical"},
+                {id: "LOG-17", name: "Optimiser itinéraire de tournée", description: "Calculer meilleur ordre de livraison", priority: "important"},
+                {id: "LOG-18", name: "Voir toutes les tournées", description: "Liste avec statut", priority: "critical"},
+                {id: "LOG-19", name: "Gérer les retours produits", description: "Voir demandes de retour et les valider", priority: "important"},
+                {id: "LOG-20", name: "Traiter un retour", description: "Inspecter produit et choisir action", priority: "important"},
+                {id: "LOG-21", name: "Rembourser un salarié", description: "Déclencher remboursement", priority: "critical"}
+            ],
+            "LIVREUR": [
+                {id: "LIV-01", name: "Voir mon tableau de bord", description: "Vue : tournées du jour, livraisons effectuées", priority: "critical"},
+                {id: "LIV-02", name: "Voir mes tournées", description: "Liste des tournées assignées", priority: "critical"},
+                {id: "LIV-03", name: "Voir détail d'une tournée", description: "Liste ordonnée des livraisons", priority: "critical"},
+                {id: "LIV-04", name: "Voir itinéraire sur carte", description: "Carte avec toutes les adresses", priority: "important"},
+                {id: "LIV-05", name: "Démarrer une tournée", description: "Marquer tournée comme en cours", priority: "critical"},
+                {id: "LIV-06", name: "Voir adresse de livraison", description: "Adresse complète + téléphone client", priority: "critical"},
+                {id: "LIV-07", name: "Scanner QR code", description: "Valider livraison en scannant QR", priority: "critical"},
+                {id: "LIV-08", name: "Marquer livraison effectuée", description: "Sans QR : bouton Livré", priority: "critical"},
+                {id: "LIV-09", name: "Signaler problème de livraison", description: "Client absent, adresse incorrecte", priority: "critical"},
+                {id: "LIV-10", name: "Terminer une tournée", description: "Marquer tournée terminée", priority: "critical"},
+                {id: "LIV-11", name: "Voir historique de mes livraisons", description: "Toutes les livraisons passées", priority: "normal"},
+                {id: "LIV-12", name: "Modifier mes disponibilités", description: "Jours/créneaux disponibles", priority: "important"}
+            ],
+            "ADMINISTRATEUR": [
+                {id: "ADM-01", name: "Voir tableau de bord global", description: "Vue complète système", priority: "critical"},
+                {id: "ADM-02", name: "Voir tous les utilisateurs", description: "Liste de tous les comptes", priority: "critical"},
+                {id: "ADM-03", name: "Créer un utilisateur", description: "Créer compte pour n'importe quel rôle", priority: "important"},
+                {id: "ADM-04", name: "Modifier un utilisateur", description: "Changer rôle, informations", priority: "important"},
+                {id: "ADM-05", name: "Désactiver/Activer un compte", description: "Bloquer ou débloquer un utilisateur", priority: "critical"},
+                {id: "ADM-06", name: "Supprimer un utilisateur", description: "Suppression définitive", priority: "important"},
+                {id: "ADM-07", name: "Voir tous les produits", description: "Catalogue complet avec stocks", priority: "critical"},
+                {id: "ADM-08", name: "Ajouter un produit", description: "Créer nouveau produit", priority: "critical"},
+                {id: "ADM-09", name: "Modifier un produit", description: "Changer prix, description, stock", priority: "critical"},
+                {id: "ADM-10", name: "Désactiver un produit", description: "Rendre produit non commandable", priority: "important"},
+                {id: "ADM-11", name: "Supprimer un produit", description: "Suppression définitive", priority: "normal"},
+                {id: "ADM-12", name: "Voir toutes les commandes", description: "Liste complète avec filtres", priority: "critical"},
+                {id: "ADM-13", name: "Modifier statut d'une commande", description: "Forcer changement de statut", priority: "important"},
+                {id: "ADM-14", name: "Annuler une commande", description: "Annuler n'importe quelle commande", priority: "important"},
+                {id: "ADM-15", name: "Voir tous les paiements", description: "Liste complète avec statuts", priority: "critical"},
+                {id: "ADM-16", name: "Voir paiements échoués", description: "Filtrer uniquement les échecs", priority: "important"},
+                {id: "ADM-17", name: "Traiter remboursement", description: "Forcer remboursement manuel", priority: "important"},
+                {id: "ADM-18", name: "Voir toutes les livraisons", description: "Toutes tournées et livraisons", priority: "important"},
+                {id: "ADM-19", name: "Voir réclamations", description: "Toutes les réclamations", priority: "important"},
+                {id: "ADM-20", name: "Voir statistiques globales", description: "KPIs : CA, nb commandes", priority: "critical"},
+                {id: "ADM-21", name: "Exporter données", description: "Export Excel/CSV", priority: "normal"},
+                {id: "ADM-22", name: "Voir logs système", description: "Historique des actions", priority: "important"},
+                {id: "ADM-23", name: "Configurer paramètres système", description: "Gérer configurations globales", priority: "normal"}
+            ]
+        };
+
+        let features = {};
         let progressData = [0];
         let history = [];
+        let chart;
+        let editingFeatureId = null;
 
-        function loadData() {
-            const saved = localStorage.getItem('coopachat_progress');
-            if (saved) {
-                const data = JSON.parse(saved);
-                completed = data.completed || 0;
-                progressData = data.progressData || [0];
-                history = data.history || [];
-                updateUI();
-            }
-        }
-
-        function saveData() {
-            localStorage.setItem('coopachat_progress', JSON.stringify({
-                completed,
-                progressData,
-                history
-            }));
-        }
-
-        const ctx = document.getElementById('progressChart').getContext('2d');
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: progressData.map((_, i) => i === 0 ? 'Début' : `Étape ${i}`),
-                datasets: [{
-                    label: 'Fonctionnalités terminées',
-                    data: progressData,
-                    borderColor: '#f8a5c2',
-                    backgroundColor: 'rgba(248, 165, 194, 0.1)',
-                    tension: 0.4,
-                    fill: true,
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                    pointBackgroundColor: '#f8a5c2',
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    },
-                    title: {
-                        display: true,
-                        text: 'Évolution de votre progression',
-                        font: { size: 18 },
-                        color: '#f8a5c2'
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: TOTAL,
-                        ticks: {
-                            stepSize: 10
-                        }
-                    }
+        async function loadData() {
+            try {
+                const result = await window.storage.get('coopachat_features');
+                if (result && result.value) {
+                    const data = JSON.parse(result.value);
+                    features = data.features || JSON.parse(JSON.stringify(DEFAULT_FEATURES));
+                    progressData = data.progressData || [0];
+                    history = data.history || [];
+                } else {
+                    features = JSON.parse(JSON.stringify(DEFAULT_FEATURES));
+                    progressData = [0];
+                    history = [];
                 }
+            } catch (error) {
+                console.log('Chargement des données par défaut');
+                features = JSON.parse(JSON.stringify(DEFAULT_FEATURES));
+                progressData = [0];
+                history = [];
             }
-        });
-
-        function addProgress(amount = 1) {
-            if (completed + amount > TOTAL) {
-                amount = TOTAL - completed;
-            }
-            
-            completed += amount;
-            progressData.push(completed);
-            
-            history.unshift({
-                action: `+${amount} terminée(s)`,
-                date: new Date().toLocaleString('fr-FR'),
-                total: completed
-            });
-            
-            if (history.length > 10) history.pop();
-            
+            renderModules();
             updateUI();
-            saveData();
-            
-            if (completed === TOTAL) {
-                celebrate();
+        }
+
+        async function saveData() {
+            try {
+                await window.storage.set('coopachat_features', JSON.stringify({
+                    features,
+                    progressData,
+                    history
+                }));
+            } catch (error) {
+                console.error('Erreur lors de la sauvegarde:', error);
             }
         }
 
-        function removeProgress() {
-            if (completed > 0) {
-                completed--;
+        function getTotalFeatures() {
+            let total = 0;
+            for (let module in features) {
+                total += features[module].length;
+            }
+            return total;
+        }
+
+        function getCompletedFeatures() {
+            let completed = 0;
+            for (let module in features) {
+                features[module].forEach(f => {
+                    if (f.completed) completed++;
+                });
+            }
+            return completed;
+        }
+
+        function renderModules() {
+            const container = document.getElementById('modulesList');
+            container.innerHTML = '';
+            
+            const moduleIcons = {
+                "AUTHENTIFICATION": "🔐",
+                "SALARIÉ": "👤",
+                "COMMERCIAL": "💼",
+                "LOGISTIQUE": "📦",
+                "LIVREUR": "🚚",
+                "ADMINISTRATEUR": "⚙️"
+            };
+
+            for (let moduleName in features) {
+                const moduleFeatures = features[moduleName];
+                const completedCount = moduleFeatures.filter(f => f.completed).length;
+                
+                const moduleDiv = document.createElement('div');
+                moduleDiv.className = 'module';
+                moduleDiv.innerHTML = `
+                    <div class="module-header" onclick="toggleModule(this)">
+                        <div class="module-title">
+                            <span class="toggle-icon">▼</span>
+                            ${moduleIcons[moduleName]} ${moduleName}
+                        </div>
+                        <div class="module-stats">
+                            ${completedCount}/${moduleFeatures.length} complétées
+                        </div>
+                    </div>
+                    <div class="features-list">
+                        ${moduleFeatures.map(feature => `
+                            <div class="feature-item ${feature.completed ? 'completed' : ''}">
+                                <input type="checkbox" 
+                                       class="feature-checkbox" 
+                                       ${feature.completed ? 'checked' : ''}
+                                       onchange="toggleFeature('${moduleName}', '${feature.id}')">
+                                <div class="feature-id">${feature.id}</div>
+                                <div class="feature-name">${feature.name}</div>
+                                <div class="feature-priority priority-${feature.priority}">
+                                    ${feature.priority === 'critical' ? '🔴 Critique' : 
+                                      feature.priority === 'important' ? '🟡 Important' : '🟢 Normal'}
+                                </div>
+                                <div class="feature-actions">
+                                    <button class="btn-icon btn-edit" onclick="editFeature('${moduleName}', '${feature.id}')">✏️</button>
+                                    <button class="btn-icon btn-delete" onclick="deleteFeature('${moduleName}', '${feature.id}')">🗑️</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(moduleDiv);
+            }
+        }
+
+        function toggleModule(header) {
+            header.parentElement.classList.toggle('collapsed');
+        }
+
+        async function toggleFeature(moduleName, featureId) {
+            const feature = features[moduleName].find(f => f.id === featureId);
+            if (feature) {
+                feature.completed = !feature.completed;
+                
+                const completed = getCompletedFeatures();
                 progressData.push(completed);
                 
+                const total = getTotalFeatures();
+                const remaining = total - completed;
+                const hoursRemaining = remaining * 2;
+                const daysRemaining = Math.ceil(hoursRemaining / 8);
+                
                 history.unshift({
-                    action: '-1 terminée',
+                    action: feature.completed ? `✅ ${feature.name}` : `⬜ ${feature.name}`,
                     date: new Date().toLocaleString('fr-FR'),
-                    total: completed
+                    total: completed,
+                    daysLeft: daysRemaining
                 });
                 
                 if (history.length > 10) history.pop();
                 
+                renderModules();
                 updateUI();
-                saveData();
+                await saveData();
+                
+                if (completed === total) {
+                    celebrate();
+                }
             }
         }
 
-        function resetProgress() {
-            if (confirm('Voulez-vous vraiment réinitialiser toute votre progression ?')) {
-                completed = 0;
-                progressData = [0];
-                history = [];
-                updateUI();
-                saveData();
+        function openAddModal() {
+            editingFeatureId = null;
+            document.getElementById('modalTitle').textContent = 'Ajouter une fonctionnalité';
+            document.getElementById('featureForm').reset();
+            document.getElementById('featureModal').classList.add('active');    
+        }
+
+        function editFeature(moduleName, featureId) {
+            const feature = features[moduleName].find(f => f.id === featureId);
+            if (feature) {
+                editingFeatureId = {moduleName, featureId};
+                document.getElementById('modalTitle').textContent = 'Modifier la fonctionnalité';
+                document.getElementById('featureModule').value = moduleName;
+                document.getElementById('featureId').value = feature.id;
+                document.getElementById('featureName').value = feature.name;
+                document.getElementById('featureDescription').value = feature.description || '';
+                document.getElementById('featurePriority').value = feature.priority;
+                document.getElementById('featureModal').classList.add('active');
             }
+        }
+
+        async function deleteFeature(moduleName, featureId) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette fonctionnalité ?')) {
+                features[moduleName] = features[moduleName].filter(f => f.id !== featureId);
+                renderModules();
+                updateUI();
+                await saveData();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('featureModal').classList.remove('active');
+        }
+
+        document.getElementById('featureForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const moduleName = document.getElementById('featureModule').value;
+            const featureData = {
+                id: document.getElementById('featureId').value,
+                name: document.getElementById('featureName').value,
+                description: document.getElementById('featureDescription').value,
+                priority: document.getElementById('featurePriority').value,
+                completed: false
+            };
+
+            if (editingFeatureId) {
+                const oldModule = editingFeatureId.moduleName;
+                const oldId = editingFeatureId.featureId;
+                
+                if (oldModule === moduleName) {
+                    const index = features[moduleName].findIndex(f => f.id === oldId);
+                    if (index !== -1) {
+                        featureData.completed = features[moduleName][index].completed;
+                        features[moduleName][index] = featureData;
+                    }
+                } else {
+                    features[oldModule] = features[oldModule].filter(f => f.id !== oldId);
+                    features[moduleName].push(featureData);
+                }
+            } else {
+                if (!features[moduleName]) features[moduleName] = [];
+                features[moduleName].push(featureData);
+            }
+
+            renderModules();
+            updateUI();
+            await saveData();
+            closeModal();
+        });
+
+        function initChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: progressData.map((_, i) => i === 0 ? 'Début' : `Étape ${i}`),
+                    datasets: [{
+                        label: 'Fonctionnalités terminées',
+                        data: progressData,
+                        borderColor: '#e8b4d0',
+                        backgroundColor: 'rgba(232, 180, 208, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        pointBackgroundColor: '#e8b4d0',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Évolution de votre progression',
+                            font: { size: 18 },
+                            color: '#e8b4d0'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: getTotalFeatures(),
+                            ticks: {
+                                stepSize: 10
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         function updateUI() {
-            const percentage = Math.round((completed / TOTAL) * 100);
+            const completed = getCompletedFeatures();
+            const total = getTotalFeatures();
+            const percentage = Math.round((completed / total) * 100);
             
             document.getElementById('completed').textContent = completed;
-            document.getElementById('remaining').textContent = TOTAL - completed;
+            document.getElementById('remaining').textContent = total - completed;
             document.getElementById('percentage').textContent = percentage + '%';
             
             const progressBar = document.getElementById('progressBar');
             progressBar.style.width = percentage + '%';
             progressBar.textContent = percentage + '%';
             
-            const remaining = TOTAL - completed;
+            const remaining = total - completed;
             const hoursRemaining = remaining * 2;
             const daysRemaining = Math.ceil(hoursRemaining / 8);
             document.getElementById('days-left').textContent = daysRemaining;
             
-            document.querySelectorAll('.milestone').forEach(milestone => {
-                const percent = parseInt(milestone.dataset.percent);
-                if (percentage >= percent) {
-                    milestone.classList.add('reached');
-                } else {
-                    milestone.classList.remove('reached');
-                }
-            });
-            
             chart.data.labels = progressData.map((_, i) => i === 0 ? 'Début' : `Étape ${i}`);
             chart.data.datasets[0].data = progressData;
+            chart.options.scales.y.max = total;
             chart.update();
             
             const historyList = document.getElementById('historyList');
@@ -498,14 +896,17 @@
                 historyList.innerHTML = history.map(item => `
                     <div class="history-item">
                         <span><strong>${item.action}</strong> - ${item.date}</span>
-                        <span style="color: #f8a5c2; font-weight: bold;">${item.total}/${TOTAL}</span>
+                        <span style="display: flex; gap: 15px; align-items: center;">
+                            <span style="color: #e8b4d0; font-weight: bold;">${item.total}/${total}</span>
+                            <span style="color: #a8c8e0; font-size: 0.9em;">⏳ ${item.daysLeft} jours</span>
+                        </span>
                     </div>
                 `).join('');
             }
         }
 
         function celebrate() {
-            const colors = ['#fbc2eb', '#f8a5c2', '#e0c3fc', '#ffd1dc'];
+            const colors = ['#e8b4d0', '#a8c8e0', '#a8d5a8', '#f0d890', '#d4b8a8'];
             const confettiCount = 100;
             
             for (let i = 0; i < confettiCount; i++) {
@@ -530,9 +931,10 @@
                 }).onfinish = () => confetti.remove();
             }
             
-            alert('🎉 Félicitations ! Vous avez terminé les 138 fonctionnalités ! 🎉');
+            alert('🎉 Félicitations ! Vous avez terminé toutes les fonctionnalités ! 🎉');
         }
 
+        initChart();
         loadData();
     </script>
 </body>
