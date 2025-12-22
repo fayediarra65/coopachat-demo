@@ -372,6 +372,25 @@
             transform: rotate(-90deg);
         }
 
+        .status-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: #a8d5a8;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .status-indicator.show {
+            opacity: 1;
+        }
+
         @media (max-width: 768px) {
             .feature-item {
                 grid-template-columns: 40px 1fr;
@@ -430,6 +449,8 @@
             <div id="historyList"></div>
         </div>
     </div>
+
+    <div class="status-indicator" id="statusIndicator"></div>
 
     <!-- Modal Ajout/Modification -->
     <div id="featureModal" class="modal">
@@ -605,7 +626,16 @@
         let chart;
         let editingFeatureId = null;
 
+        function showStatus(message, type = 'success') {
+            const indicator = document.getElementById('statusIndicator');
+            indicator.textContent = message;
+            indicator.style.background = type === 'success' ? '#a8d5a8' : '#e8b4b4';
+            indicator.classList.add('show');
+            setTimeout(() => indicator.classList.remove('show'), 2000);
+        }
+
         async function loadData() {
+            // Essai 1 : window.storage (stockage persistant Claude)
             try {
                 const result = await window.storage.get('coopachat_features');
                 if (result && result.value) {
@@ -613,30 +643,90 @@
                     features = data.features || JSON.parse(JSON.stringify(DEFAULT_FEATURES));
                     progressData = data.progressData || [0];
                     history = data.history || [];
-                } else {
-                    features = JSON.parse(JSON.stringify(DEFAULT_FEATURES));
-                    progressData = [0];
-                    history = [];
+                    console.log('✅ Données chargées depuis window.storage');
+                    showStatus('✅ Données chargées');
+                    renderModules();
+                    updateUI();
+                    return;
                 }
             } catch (error) {
-                console.log('Chargement des données par défaut');
-                features = JSON.parse(JSON.stringify(DEFAULT_FEATURES));
-                progressData = [0];
-                history = [];
+                console.warn('⚠️ window.storage non disponible:', error);
             }
+
+            // Essai 2 : localStorage (stockage navigateur)
+            try {
+                const localData = localStorage.getItem('coopachat_features');
+                if (localData) {
+                    const data = JSON.parse(localData);
+                    features = data.features || JSON.parse(JSON.stringify(DEFAULT_FEATURES));
+                    progressData = data.progressData || [0];
+                    history = data.history || [];
+                    console.log('✅ Données chargées depuis localStorage');
+                    showStatus('✅ Données chargées (local)');
+                    renderModules();
+                    updateUI();
+                    return;
+                }
+            } catch (error) {
+                console.warn('⚠️ localStorage non disponible:', error);
+            }
+
+            // Initialisation par défaut
+            console.log('📦 Initialisation avec données par défaut');
+            features = JSON.parse(JSON.stringify(DEFAULT_FEATURES));
+            progressData = [0];
+            history = [];
+            await saveData();
             renderModules();
             updateUI();
         }
 
         async function saveData() {
+            const dataToSave = {
+                features,
+                progressData,
+                history,
+                lastSaved: new Date().toISOString()
+            };
+            const jsonData = JSON.stringify(dataToSave);
+            
+            let savedToCloud = false;
+            let savedToLocal = false;
+
+            // Sauvegarde 1 : window.storage (prioritaire)
             try {
-                await window.storage.set('coopachat_features', JSON.stringify({
-                    features,
-                    progressData,
-                    history
-                }));
+                const result = await window.storage.set('coopachat_features', jsonData);
+                if (result) {
+                    savedToCloud = true;
+                    console.log('💾 Sauvegardé dans window.storage');
+                }
             } catch (error) {
-                console.error('Erreur lors de la sauvegarde:', error);
+                console.warn('⚠️ Échec window.storage:', error);
+            }
+
+            // Sauvegarde 2 : localStorage (backup)
+            try {
+                localStorage.setItem('coopachat_features', jsonData);
+                savedToLocal = true;
+                console.log('💾 Sauvegardé dans localStorage');
+            } catch (error) {
+                console.warn('⚠️ Échec localStorage:', error);
+            }
+
+            // Notification à l'utilisateur
+            if (savedToCloud && savedToLocal) {
+                showStatus('💾 Sauvegardé (cloud + local)');
+                return true;
+            } else if (savedToCloud) {
+                showStatus('💾 Sauvegardé (cloud)');
+                return true;
+            } else if (savedToLocal) {
+                showStatus('💾 Sauvegardé (local uniquement)');
+                return true;
+            } else {
+                showStatus('⚠️ Échec sauvegarde', 'error');
+                alert('⚠️ ATTENTION : La sauvegarde a échoué. Vos données risquent d\'être perdues au rechargement. Copiez vos données importantes !');
+                return false;
             }
         }
 
@@ -740,7 +830,14 @@
                 
                 renderModules();
                 updateUI();
-                await saveData();
+                const saved = await saveData();
+                
+                if (!saved) {
+                    console.warn('⚠️ La sauvegarde a échoué, tentative de restauration...');
+                    feature.completed = !feature.completed;
+                    renderModules();
+                    updateUI();
+                }
                 
                 if (completed === total) {
                     celebrate();
