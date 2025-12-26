@@ -197,7 +197,7 @@
             color: #333;
         }
 
-        .priority-normal {
+        .priority-EnCours {
             background: #a8d5a8;
             color: white;
         }
@@ -485,7 +485,7 @@
                     <select id="featurePriority" required>
                         <option value="critical">🔴 Critique</option>
                         <option value="important">🟡 Important</option>
-                        <option value="normal">🟢 Normal</option>
+                        <option value="EnCours">🟢 EnCours</option>
                     </select>
                 </div>
                 <div class="modal-actions">
@@ -509,10 +509,10 @@
                 {id: "AUTH-08", name: "Mot de passe oublié", description: "Réinitialiser le mot de passe par email", priority: "important"},
                 {id: "AUTH-09", name: "Double authentification (2FA) Admin", description: "Code SMS obligatoire pour admin", priority: "important"},
                 {id: "AUTH-10", name: "Refresh Token", description: "Renouveler le token d'accès sans re-connexion", priority: "important"},
-                {id: "AUTH-11", name: "Déconnexion", description: "Se déconnecter et invalider le token", priority: "normal"}
+                {id: "AUTH-11", name: "Déconnexion", description: "Se déconnecter et invalider le token", priority: "EnCours"}
             ],
             "SALARIÉ": [
-                {id: "SAL-01", name: "Voir mon profil", description: "Consulter mes informations personnelles", priority: "normal"},
+                {id: "SAL-01", name: "Voir mon profil", description: "Consulter mes informations personnelles", priority: "EnCours"},
                 {id: "SAL-02", name: "Modifier mon profil", description: "Mettre à jour nom, téléphone, adresse", priority: "important"},
                 {id: "SAL-03", name: "Modifier préférences de livraison", description: "Choisir jours, créneaux horaires, adresse", priority: "important"},
                 {id: "SAL-04", name: "Consulter le catalogue produits", description: "Voir tous les produits avec filtres", priority: "critical"},
@@ -532,9 +532,9 @@
                 {id: "SAL-18", name: "Suivre statut de ma commande", description: "Voir : validée, en préparation, expédiée, livrée", priority: "critical"},
                 {id: "SAL-19", name: "Modifier ma commande", description: "Modifier avant préparation", priority: "important"},
                 {id: "SAL-20", name: "Annuler ma commande", description: "Annuler si statut = validée ou en attente", priority: "important"},
-                {id: "SAL-21", name: "Voir mes coupons disponibles", description: "Liste des coupons actifs utilisables", priority: "normal"},
+                {id: "SAL-21", name: "Voir mes coupons disponibles", description: "Liste des coupons actifs utilisables", priority: "EnCours"},
                 {id: "SAL-22", name: "Recevoir notification de livraison", description: "Notification quand commande est livrée", priority: "critical"},
-                {id: "SAL-23", name: "Consulter historique des paiements", description: "Voir tous mes paiements effectués", priority: "normal"},
+                {id: "SAL-23", name: "Consulter historique des paiements", description: "Voir tous mes paiements effectués", priority: "EnCours"},
                 {id: "SAL-24", name: "Télécharger reçu de paiement", description: "Télécharger PDF du reçu", priority: "important"},
                 {id: "SAL-25", name: "Soumettre une réclamation", description: "Signaler produit manquant/endommagé/erreur", priority: "critical"},
                 {id: "SAL-26", name: "Suivre ma réclamation", description: "Voir statut : en attente, en cours, résolue", priority: "important"},
@@ -550,11 +550,11 @@
                 {id: "COM-07", name: "Voir liste des salariés inscrits", description: "Par entreprise avec statut", priority: "important"},
                 {id: "COM-08", name: "Créer un coupon de réduction", description: "Code promo avec date validité", priority: "critical"},
                 {id: "COM-09", name: "Voir mes coupons créés", description: "Liste de tous les coupons avec utilisation", priority: "important"},
-                {id: "COM-10", name: "Modifier un coupon", description: "Changer dates ou produits éligibles", priority: "normal"},
-                {id: "COM-11", name: "Désactiver un coupon", description: "Rendre un coupon inutilisable", priority: "normal"},
+                {id: "COM-10", name: "Modifier un coupon", description: "Changer dates ou produits éligibles", priority: "EnCours"},
+                {id: "COM-11", name: "Désactiver un coupon", description: "Rendre un coupon inutilisable", priority: "EnCours"},
                 {id: "COM-12", name: "Voir statistiques par entreprise", description: "Nombre commandes, montant total", priority: "critical"},
                 {id: "COM-13", name: "Exporter rapport de ventes", description: "Télécharger Excel/PDF des statistiques", priority: "important"},
-                {id: "COM-14", name: "Voir graphique évolution ventes", description: "Graphique mensuel/trimestriel", priority: "normal"}
+                {id: "COM-14", name: "Voir graphique évolution ventes", description: "Graphique mensuel/trimestriel", priority: "EnCours"}
             ],
             "LOGISTIQUE": [
                 {id: "LOG-01", name: "Voir tableau de bord logistique", description: "Vue : commandes à préparer, stocks, livraisons", priority: "critical"},
@@ -590,7 +590,7 @@
                 {id: "LIV-08", name: "Marquer livraison effectuée", description: "Sans QR : bouton Livré", priority: "critical"},
                 {id: "LIV-09", name: "Signaler problème de livraison", description: "Client absent, adresse incorrecte", priority: "critical"},
                 {id: "LIV-10", name: "Terminer une tournée", description: "Marquer tournée terminée", priority: "critical"},
-                {id: "LIV-11", name: "Voir historique de mes livraisons", description: "Toutes les livraisons passées", priority: "normal"},
+                {id: "LIV-11", name: "Voir historique de mes livraisons", description: "Toutes les livraisons passées", priority: "EnCours"},
                 {id: "LIV-12", name: "Modifier mes disponibilités", description: "Jours/créneaux disponibles", priority: "important"}
             ],
             "ADMINISTRATEUR": [
@@ -604,7 +604,7 @@
                 {id: "ADM-08", name: "Ajouter un produit", description: "Créer nouveau produit", priority: "critical"},
                 {id: "ADM-09", name: "Modifier un produit", description: "Changer prix, description, stock", priority: "critical"},
                 {id: "ADM-10", name: "Désactiver un produit", description: "Rendre produit non commandable", priority: "important"},
-                {id: "ADM-11", name: "Supprimer un produit", description: "Suppression définitive", priority: "normal"},
+                {id: "ADM-11", name: "Supprimer un produit", description: "Suppression définitive", priority: "EnCours"},
                 {id: "ADM-12", name: "Voir toutes les commandes", description: "Liste complète avec filtres", priority: "critical"},
                 {id: "ADM-13", name: "Modifier statut d'une commande", description: "Forcer changement de statut", priority: "important"},
                 {id: "ADM-14", name: "Annuler une commande", description: "Annuler n'importe quelle commande", priority: "important"},
@@ -614,9 +614,9 @@
                 {id: "ADM-18", name: "Voir toutes les livraisons", description: "Toutes tournées et livraisons", priority: "important"},
                 {id: "ADM-19", name: "Voir réclamations", description: "Toutes les réclamations", priority: "important"},
                 {id: "ADM-20", name: "Voir statistiques globales", description: "KPIs : CA, nb commandes", priority: "critical"},
-                {id: "ADM-21", name: "Exporter données", description: "Export Excel/CSV", priority: "normal"},
+                {id: "ADM-21", name: "Exporter données", description: "Export Excel/CSV", priority: "EnCours"},
                 {id: "ADM-22", name: "Voir logs système", description: "Historique des actions", priority: "important"},
-                {id: "ADM-23", name: "Configurer paramètres système", description: "Gérer configurations globales", priority: "normal"}
+                {id: "ADM-23", name: "Configurer paramètres système", description: "Gérer configurations globales", priority: "EnCours"}
             ]
         };
 
@@ -788,7 +788,7 @@
                                 <div class="feature-name">${feature.name}</div>
                                 <div class="feature-priority priority-${feature.priority}">
                                     ${feature.priority === 'critical' ? '🔴 Critique' : 
-                                      feature.priority === 'important' ? '🟡 Important' : '🟢 Normal'}
+                                      feature.priority === 'important' ? '🟡 Important' : '🟢 EnCours'}
                                 </div>
                                 <div class="feature-actions">
                                     <button class="btn-icon btn-edit" onclick="editFeature('${moduleName}', '${feature.id}')">✏️</button>
